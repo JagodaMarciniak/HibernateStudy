@@ -3,6 +3,8 @@ package pl.nullpointerexception.hibernate.entity;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Entity
 
 public class Product {
@@ -15,6 +17,17 @@ public class Product {
     private LocalDateTime created;
     private LocalDateTime updated;
     private BigDecimal price;
+    @OneToMany(mappedBy = "product")
+    private List<Review> reviewList;
+
+    public List<Review> getReviewList() {
+        return reviewList;
+    }
+
+    public void setReviewList(List<Review> reviewList) {
+        this.reviewList = reviewList;
+    }
+
     @Column(name="type")
     @Enumerated (EnumType.STRING)
     private ProductType productType;
@@ -75,9 +88,10 @@ public class Product {
         return productType;
     }
 
+
     @Override
     public String toString() {
-        return "Product{" +
+        return "pl.nullpointerexception.hibernate.entity.Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +

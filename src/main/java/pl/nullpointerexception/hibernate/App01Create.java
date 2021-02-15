@@ -18,7 +18,9 @@ private static EntityManagerFactory entityManagerFactory = Persistence.createEnt
 public static void main(String[] args) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        logger.info("Siemanko, stwórzmy product");
+    Product product1 = entityManager.find(Product.class, 1L);
+    logger.info(product1);
+    logger.info("Siemanko, stwórzmy product");
     Product product = new Product();
     product.setCreated(LocalDateTime.now());
     product.setUpdated(LocalDateTime.now());
@@ -27,7 +29,7 @@ public static void main(String[] args) {
     product.setPrice(new BigDecimal(690.99));
     product.setProductType(ProductType.REAL);
     entityManager.persist(product);
-    logger.info("Stworzono produkt:/n " +product);
+    logger.info("Stworzono produkt");
 
         entityManager.getTransaction().commit();
         entityManager.close();
