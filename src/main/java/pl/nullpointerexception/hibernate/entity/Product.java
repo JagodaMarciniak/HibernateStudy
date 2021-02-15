@@ -11,7 +11,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="name") // niepotrzebne tu ale można jesli nazwa polajest inna niż kolumna w bazie
+    @Column(name="name")
     private String name;
     private String description;
     private LocalDateTime created;
@@ -19,6 +19,16 @@ public class Product {
     private BigDecimal price;
     @OneToMany(mappedBy = "product")
     private List<Review> reviewList;
+    @OneToOne(fetch = FetchType.LAZY)
+    private Category category;
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     public List<Review> getReviewList() {
         return reviewList;
@@ -98,6 +108,7 @@ public class Product {
                 ", created=" + created +
                 ", updated=" + updated +
                 ", price=" + price +
+                ", reviewList=" + reviewList +
                 ", productType=" + productType +
                 '}';
     }
